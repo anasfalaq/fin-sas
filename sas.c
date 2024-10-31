@@ -69,3 +69,25 @@ void afficher_taches() {
         printf("----------------------\n");
     }
 }
+
+// Fonction pour modifier une tache
+void modifier_tache() {
+    int index;
+    printf("Entrez le numero de la tache à modifier : ");
+    scanf("%d", &index);
+    index--; 
+
+    if (index < 0 || index >= nombre_taches) {
+        printf("Tache introuvable.\n");
+        return;
+    }
+
+    printf("Nouvelle description : ");
+    scanf(" %[^\n]", liste_taches[index].description);
+    printf("Nouvelle date d'echeance (YYYY-MM-DD) : ");
+    scanf(" %[^\n]", liste_taches[index].date_echeance);
+    printf("Nouvelle priorite (High/Low) : ");
+    scanf(" %[^\n]", liste_taches[index].priorite);
+
+    printf("Tache modifiee avec succès !\n");
+}
