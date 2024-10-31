@@ -25,3 +25,34 @@ void afficher_menu() {
     printf("0. Quitter\n");
     printf("Choisissez une option : ");
 }
+
+// Fonction pour ajouter une tache
+void ajouter_tache() {
+    if (nombre_taches >= MAX_TACHES) {
+        printf("La liste des taches est pleine.\n");
+        return;
+    }
+    printf("Titre : ");
+    scanf(" %[^\n]", liste_taches[nombre_taches].titre);
+    printf("Description : ");
+    scanf(" %[^\n]", liste_taches[nombre_taches].description);
+    printf("Date d'echeance (YYYY-MM-DD) : ");
+    scanf(" %[^\n]", liste_taches[nombre_taches].date_echeance);
+
+    while (1) {
+        printf("Priorite (High/Low) : ");
+        scanf(" %[^\n]", liste_taches[nombre_taches].priorite);
+        
+        
+        if (strcmp(liste_taches[nombre_taches].priorite, "High") == 0 || 
+            strcmp(liste_taches[nombre_taches].priorite, "Low") == 0) {
+            break; 
+        } else {
+            printf("Entrée invalide. Veuillez saisir 'High' ou 'Low'.\n");
+        }
+    }
+    
+
+    nombre_taches++;
+    printf("Tache ajoutee avec succès !\n");
+}
