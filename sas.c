@@ -56,3 +56,16 @@ void ajouter_tache() {
     nombre_taches++;
     printf("Tache ajoutee avec succès !\n");
 }
+
+// Fonction pour afficher toutes les taches
+void afficher_taches() {
+    printf("\n=== Liste des Taches ===\n");
+    for (int i = 0; i < nombre_taches; i++) {
+        printf("Tache %d :\n", i + 1);
+        printf("Titre : %s\n", liste_taches[i].titre);
+        printf("Description : %s\n", liste_taches[i].description);
+        printf("Date d'echeance : %s\n", liste_taches[i].date_echeance);
+        printf("Priorite : %s\n", liste_taches[i].priorite);
+        printf("----------------------\n");
+    }
+}
