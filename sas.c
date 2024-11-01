@@ -14,7 +14,7 @@ typedef struct {
     char description[200];
   //  char date_echeance[11]; 
     date Date;
-    char priorite[5]; 
+    int priorite; 
 }Tache;
 
 
@@ -46,18 +46,18 @@ void ajouter_tache() {
     printf("Description : ");
     scanf(" %[^\n]", liste_taches[nombre_taches].description);
     
-    // Demander la date d'échéance
-    printf("Date d'echeance (JJ MM AAAA) : ");
-    scanf("%d %d %d", &liste_taches[nombre_taches].Date.jour,
-          &liste_taches[nombre_taches].Date.mois,
-          &liste_taches[nombre_taches].Date.annee);
 
     // Validation de l'année
-    if (liste_taches[nombre_taches].Date.annee < 2024) {
-        printf("Invalide : l'annee %d est inferieure a 2024.\n", 
-               liste_taches[nombre_taches].Date.annee);
-        return; // Sortir de la fonction si l'année est invalide
-    }
+    do {
+        printf("Date d'echeance (JJ MM AAAA) : ");
+        scanf("%d %d %d", &liste_taches[nombre_taches].Date.jour,
+          &liste_taches[nombre_taches].Date.mois,
+          &liste_taches[nombre_taches].Date.annee);
+          printf("year + %d\n", liste_taches[nombre_taches].Date.annee);
+
+    } while(liste_taches[nombre_taches].Date.annee < 2024
+        || liste_taches[nombre_taches].Date.mois > 12 ||
+        liste_taches[nombre_taches].Date.jour > 31);
 
     // Vérification de la priorité
     while (1) {
