@@ -2,17 +2,25 @@
 #include <string.h>
 
 #define MAX_TACHES 100
+ typedef struct {
+    int jour;
+    int mois;
+    int annee;
+} date;
+
 
 typedef struct {
     char titre[50];
     char description[200];
-    char date_echeance[11]; 
+  //  char date_echeance[11]; 
+    date Date;
     char priorite[5]; 
-} Tache;
+}Tache;
+
+
 
 Tache liste_taches[MAX_TACHES];
 int nombre_taches = 0;
-
 
 // Fonction pour afficher le menu
 void afficher_menu() {
@@ -32,29 +40,41 @@ void ajouter_tache() {
         printf("La liste des taches est pleine.\n");
         return;
     }
+    
     printf("Titre : ");
     scanf(" %[^\n]", liste_taches[nombre_taches].titre);
     printf("Description : ");
     scanf(" %[^\n]", liste_taches[nombre_taches].description);
-    printf("Date d'echeance (YYYY-MM-DD) : ");
-    scanf(" %[^\n]", liste_taches[nombre_taches].date_echeance);
+    
+    // Demander la date d'échéance
+    printf("Date d'echeance (JJ MM AAAA) : ");
+    scanf("%d %d %d", &liste_taches[nombre_taches].Date.jour,
+          &liste_taches[nombre_taches].Date.mois,
+          &liste_taches[nombre_taches].Date.annee);
 
+    // Validation de l'année
+    if (liste_taches[nombre_taches].Date.annee < 2024) {
+        printf("Invalide : l'annee %d est inferieure a 2024.\n", 
+               liste_taches[nombre_taches].Date.annee);
+        return; // Sortir de la fonction si l'année est invalide
+    }
+
+    // Vérification de la priorité
     while (1) {
         printf("Priorite (High/Low) : ");
         scanf(" %[^\n]", liste_taches[nombre_taches].priorite);
         
-        
+        // Vérification de la priorite
         if (strcmp(liste_taches[nombre_taches].priorite, "High") == 0 || 
             strcmp(liste_taches[nombre_taches].priorite, "Low") == 0) {
-            break; 
+            break; // Sortir de la boucle si la priorite est valide
         } else {
             printf("Entrée invalide. Veuillez saisir 'High' ou 'Low'.\n");
         }
     }
-    
 
     nombre_taches++;
-    printf("Tache ajoutee avec succès !\n");
+    printf("Tache ajoutée avec succès !\n");
 }
 
 // Fonction pour afficher toutes les taches
@@ -64,7 +84,10 @@ void afficher_taches() {
         printf("Tache %d :\n", i + 1);
         printf("Titre : %s\n", liste_taches[i].titre);
         printf("Description : %s\n", liste_taches[i].description);
-        printf("Date d'echeance : %s\n", liste_taches[i].date_echeance);
+        printf("Date d'echeance : %d-%d-%d\n",
+          liste_taches[i].Date.jour,
+          liste_taches[i].Date.mois,
+          liste_taches[i].Date.annee);
         printf("Priorite : %s\n", liste_taches[i].priorite);
         printf("----------------------\n");
     }
@@ -84,8 +107,19 @@ void modifier_tache() {
 
     printf("Nouvelle description : ");
     scanf(" %[^\n]", liste_taches[index].description);
-    printf("Nouvelle date d'echeance (YYYY-MM-DD) : ");
-    scanf(" %[^\n]", liste_taches[index].date_echeance);
+   // Demander la date d'échéance
+    printf("Date d'echeance (JJ MM AAAA) : ");
+    scanf("%d %d %d", &liste_taches[nombre_taches].Date.jour,
+          &liste_taches[nombre_taches].Date.mois,
+          &liste_taches[nombre_taches].Date.annee);
+
+    // Validation de l'année
+    if (liste_taches[nombre_taches].Date.annee < 2024) {
+        printf("Invalide : l'année %d est inférieure à 2024.\n", 
+               liste_taches[nombre_taches].Date.annee);
+        return; // Sortir de la fonction si l'année est invalide
+    }
+
     printf("Nouvelle priorite (High/Low) : ");
     scanf(" %[^\n]", liste_taches[index].priorite);
 
@@ -110,3 +144,4 @@ void supprimer_tache() {
     nombre_taches--;
     printf("Tache supprimee avec succès !\n");
 }
+
